@@ -25,6 +25,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Image armourbarImage;
 
+    [SerializeField]
+    private Canvas healthBarCanvas;
+
     private int healthPoints = 100;
 
     private int armourPoints = 0;
@@ -41,6 +44,7 @@ public class CharacterController : MonoBehaviour
 
     private Collider2D[] results = new Collider2D[1];
 
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     private void Start()
@@ -51,6 +55,7 @@ public class CharacterController : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -126,6 +131,8 @@ public class CharacterController : MonoBehaviour
         Vector3 localRotation = transform.localEulerAngles;
         localRotation.y += 180f;
         transform.localEulerAngles = localRotation;
+        healthBarCanvas.transform.forward = mainCamera.transform.forward;
+
     }
 
     private void FixedUpdate()
