@@ -25,6 +25,8 @@ public class CharacterController : MonoBehaviour
 
     private bool jump = false;
 
+    private bool isAlive = true;
+
     private Collider2D[] results = new Collider2D[1];
 
     // Start is called before the first frame update
@@ -41,31 +43,33 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        if (transform.right.x > 0 && horizontalInput < 0)
+        if (isAlive)
         {
-            Flip();
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+            if (transform.right.x > 0 && horizontalInput < 0)
+            {
+                Flip();
+            }
+
+            if (transform.right.x < 0 && horizontalInput > 0)
+            {
+                Flip();
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                StopAttackAnimation();
+                jump = true;
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Attack();
+            }
+
+            HandleMovement(horizontalInput);
         }
-
-        if (transform.right.x < 0 && horizontalInput > 0)
-        {
-            Flip();
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            jump = true;
-        }
-
-        if(Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
-
-
-        HandleMovement(horizontalInput);
-
     }
 
     private void Attack()
@@ -73,14 +77,34 @@ public class CharacterController : MonoBehaviour
         myAnimator.SetTrigger("Attack");
     }
 
+    private void StopAttackAnimation()
+    {
+        myAnimator.ResetTrigger("Attack");
+    }
+
+
     private void HandleMovement(float horizontalInput)
     {
-        myRigidbody.velocity =
-new Vector2(horizontalInput * speed,
-myRigidbody.velocity.y
-);
 
-        myAnimator.SetFloat("spd", Mathf.Abs(horizontalInput));
+        if (myRigidbody.velocity.y < 0)
+        {
+            myAnimator.SetBool("Land", true);
+        }
+
+        if (myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            myRigidbody.velocity = new Vector2(horizontalInput * 0, myRigidbody.velocity.y);
+
+            StopAttackAnimation();
+
+        }
+        else
+        {
+            myRigidbody.velocity = new Vector2(horizontalInput * speed, myRigidbody.velocity.y);
+
+            myAnimator.SetFloat("Spd", Mathf.Abs(horizontalInput));
+        }
+
     }
 
     private void Flip()
@@ -92,17 +116,44 @@ myRigidbody.velocity.y
 
     private void FixedUpdate()
     {
-        if(jump && IsGrounded())
+        if (jump && IsGrounded())
         {
-            myRigidbody.velocity = Vector2.zero;
-            myRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jump = false;
+            Jump();        
         }
+
+        HandleLayers();
+    }
+
+    private void Jump()
+    {
+        myRigidbody.velocity = Vector2.zero;
+        myRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        jump = false;
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapPointNonAlloc(groundCheck.position, results, groundLayer) > 0;
+        bool r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, groundLayer) > 0;
+
+        if(r)
+        {
+            myAnimator.SetTrigger("Jmp");
+            myAnimator.SetBool("Land", false);
+        }
+
+        return r;
+    }
+
+    private void HandleLayers()
+    {
+        if (!IsGrounded())
+        {
+            myAnimator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            myAnimator.SetLayerWeight(1, 0);
+        }
     }
 
 }
