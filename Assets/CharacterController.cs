@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+
 
 public class CharacterController : MonoBehaviour
 {
@@ -17,6 +19,16 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Transform groundCheck;
 
+    [SerializeField]
+    private Image lifebarImage;
+
+    [SerializeField]
+    private Image armourbarImage;
+
+    private int healthPoints = 100;
+
+    private int armourPoints = 0;
+
     private bool right;
 
     private Rigidbody2D myRigidbody;
@@ -28,6 +40,7 @@ public class CharacterController : MonoBehaviour
     private bool isAlive = true;
 
     private Collider2D[] results = new Collider2D[1];
+
 
     // Start is called before the first frame update
     private void Start()
@@ -75,6 +88,7 @@ public class CharacterController : MonoBehaviour
     private void Attack()
     {
         myAnimator.SetTrigger("Attack");
+        updateBars();
     }
 
     private void StopAttackAnimation()
@@ -155,5 +169,56 @@ public class CharacterController : MonoBehaviour
             myAnimator.SetLayerWeight(1, 0);
         }
     }
+
+    private void TakeDamage(int dmg)
+    {
+        if (isAlive)
+        {
+
+            if(armourPoints > 0)
+            {
+                // vou remover armor 1º
+                if(armourPoints < dmg)
+                {
+                    dmg -= armourPoints;
+                    armourPoints = 0;
+                } else
+                {
+                    armourPoints -= dmg;
+                }
+            }
+
+            if(dmg > 0)
+            {
+                healthPoints -= dmg;
+
+                if(healthPoints < 0)
+                {
+                    healthPoints = 0;
+                }
+            }
+
+            if(healthPoints == 0)
+            {
+                Defeat();
+            }
+
+            updateBars();
+
+        }
+    }
+
+    private void Defeat()
+    {
+        isAlive = false;
+        myAnimator.SetTrigger("Defeat");
+    }
+
+    private void updateBars()
+    {
+        lifebarImage.fillAmount = healthPoints / 100f;
+        armourbarImage.fillAmount = armourPoints / 100f;
+    }
+
 
 }

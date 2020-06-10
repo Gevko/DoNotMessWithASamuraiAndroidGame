@@ -50,3 +50,6 @@ TagManager:
   - name: PlayerLayer
     uniqueID: 1286184901
     locked: 0
+  - name: LifeBarLayer
+    uniqueID: 746648927
+    locked: 0
