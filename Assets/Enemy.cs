@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -37,20 +38,50 @@ public class Enemy : MonoBehaviour
 
     private bool isAlive = true;
 
+    [SerializeField]
+    private Image lifebarImage;
+
+    [SerializeField]
+    private Canvas myCanvas;
+
+    private Camera mainCamera;
+
+    private Transform player;
+
+    private bool lookingRight = true;
+
+
     private void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+        mainCamera = FindObjectOfType<Camera>();
+    }
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        UpdateLifebarImage();
     }
 
     private void Update()
     {
         if (isAlive)
         {
-            myRigidbody.velocity =
+            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            print(player.position.x > transform.position.x);
+            if (player.position.x > transform.position.x && !lookingRight)
+            {
+                Flip();
+            }
+            if (player.position.x < transform.position.x && lookingRight)
+            {
+                Flip();
+            }
+            /* myRigidbody.velocity =
                 new Vector2(speed * transform.right.x,
                 myRigidbody.velocity.y
-                );
+                ); */
 
             //myAnimator.SetFloat("HorizontalSpeed", Mathf.Abs(myRigidbody.velocity.x));
         }
@@ -58,13 +89,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Physics2D.OverlapPointNonAlloc(
+        /*if (Physics2D.OverlapPointNonAlloc(
             groundCheck.position,
             results,
             groundLayerMask) == 0)
         {
             Flip();
-        }
+        }*/
         if (Physics2D.OverlapPointNonAlloc(
             playerCheck.position,
             playerResults,
@@ -85,8 +116,9 @@ public class Enemy : MonoBehaviour
     {
         Vector3 localRotation = transform.localEulerAngles;
         localRotation.y += 180f;
+        lookingRight = !lookingRight;
         transform.localEulerAngles = localRotation;
-        //myCanvas.transform.forward = mainCamera.transform.forward;
+        myCanvas.transform.forward = mainCamera.transform.forward;
     }
 
     private void Attack()
@@ -105,6 +137,8 @@ public class Enemy : MonoBehaviour
                 life = 0f;
             }
 
+            UpdateLifebarImage();
+
             if (life == 0f)
             {
                 Die();
@@ -117,4 +151,13 @@ public class Enemy : MonoBehaviour
         myAnimator.SetTrigger("Die");
     }
 
+    private void UpdateLifebarImage()
+    {
+        lifebarImage.fillAmount = life / 100f;
+    }
+
+    private void DestroyEnemy() //called by animation event
+    {
+        Destroy(gameObject);
+    }
 }
