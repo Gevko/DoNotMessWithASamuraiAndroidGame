@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - GroundLayer
-  - 
-  - 
-  - 
+  - PlayerExample
+  - EnemyLayer
+  - DamageLayer
   - 
   - 
   - 
