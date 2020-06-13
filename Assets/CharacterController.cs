@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 4f;
+    private float speed = 5f;
 
     [SerializeField]
-    private float jumpForce = 5f;
+    private float jumpForce = 7f;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -28,9 +28,20 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Canvas healthBarCanvas;
 
+    [SerializeField]
+    private Transform attackPos;
+
+    [SerializeField]
+    private LayerMask enemyLayerMask;
+
+    [SerializeField]
+    private int damage = 25;
+
+    private float attackRange = 1f;
+
     private int healthPoints = 100;
 
-    private int armourPoints = 0;
+    private int armourPoints = 100;
 
     private bool right;
 
@@ -87,13 +98,23 @@ public class CharacterController : MonoBehaviour
             }
 
             HandleMovement(horizontalInput);
+
         }
     }
 
     private void Attack()
     {
         myAnimator.SetTrigger("Attack");
-        updateBars();
+
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyLayerMask);
+
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            if(enemiesToDamage[i] != null)
+            {
+                enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+            }
+        }
     }
 
     private void StopAttackAnimation()
@@ -104,7 +125,6 @@ public class CharacterController : MonoBehaviour
 
     private void HandleMovement(float horizontalInput)
     {
-
         if (myRigidbody.velocity.y < 0)
         {
             myAnimator.SetBool("Land", true);
@@ -139,7 +159,7 @@ public class CharacterController : MonoBehaviour
     {
         if (jump && IsGrounded())
         {
-            Jump();        
+            Jump();
         }
 
         HandleLayers();
@@ -156,7 +176,7 @@ public class CharacterController : MonoBehaviour
     {
         bool r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, groundLayer) > 0;
 
-        if(r)
+        if (r)
         {
             myAnimator.SetTrigger("Jmp");
             myAnimator.SetBool("Land", false);
@@ -177,41 +197,64 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         if (isAlive)
         {
 
-            if(armourPoints > 0)
+            if (armourPoints > 0)
             {
                 // vou remover armor 1º
-                if(armourPoints < dmg)
+                if (armourPoints < dmg)
                 {
                     dmg -= armourPoints;
                     armourPoints = 0;
-                } else
+                }
+                else
                 {
                     armourPoints -= dmg;
+                    dmg = 0;
                 }
             }
 
-            if(dmg > 0)
+            if (dmg > 0)
             {
                 healthPoints -= dmg;
 
-                if(healthPoints < 0)
+                if (healthPoints < 0)
                 {
                     healthPoints = 0;
                 }
             }
 
-            if(healthPoints == 0)
+            if (healthPoints == 0)
             {
                 Defeat();
             }
 
             updateBars();
 
+        }
+    }
+
+    public void LifeSteal(int hp, int ap)
+    {
+        if(isAlive)
+        {
+            healthPoints += hp;
+            armourPoints += ap;
+
+            if(healthPoints > 100)
+            {
+                healthPoints = 100;
+            }
+
+            if(armourPoints > 100)
+            {
+                armourPoints = 100;
+            }
+
+            updateBars();
         }
     }
 
