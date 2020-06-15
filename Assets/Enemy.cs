@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -57,7 +59,9 @@ public class Enemy : MonoBehaviour
 
     private Collider2D playerCollider;
 
+    private int cooldownCounter = 0;
 
+    private int cooldownInMs = 1000;
 
     private void Awake()
     {
@@ -112,7 +116,19 @@ public class Enemy : MonoBehaviour
 
         if (playerColliders.Length != 0)
         {
-            Attack();
+            if (cooldownCounter == 0)
+            {
+                //Attack();
+                cooldownCounter = Environment.TickCount;
+            }
+            else
+            {
+                if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                {
+                    //Attack();
+                    cooldownCounter = Environment.TickCount;
+                }
+            }
         }
         //if (Physics2D.OverlapPointNonAlloc(
         //    playerCheck.position,
@@ -159,14 +175,15 @@ public class Enemy : MonoBehaviour
     }
     private void Die()
     {
-        isAlive = false;
-
-        if(playerCollider != null)
+        if (playerCollider != null)
         {
             playerCollider.GetComponent<CharacterController>().LifeSteal(5, 5);
         }
 
+        isAlive = false;
+
         myAnimator.SetTrigger("Die");
+
     }
 
     private void UpdateLifebarImage()
@@ -177,5 +194,10 @@ public class Enemy : MonoBehaviour
     private void DestroyEnemy() //called by animation event
     {
         Destroy(gameObject);
+    }
+
+    public void StopMovement()
+    {
+        myRigidbody.velocity = Vector3.zero;
     }
 }

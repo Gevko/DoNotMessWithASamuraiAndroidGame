@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private int damage = 25;
 
-    private float attackRange = 1f;
+    private float attackRange = 0.2f;
 
     private int healthPoints = 100;
 
@@ -56,6 +56,10 @@ public class CharacterController : MonoBehaviour
     private Collider2D[] results = new Collider2D[1];
 
     private Camera mainCamera;
+
+    private int cooldownCounter = 0;
+
+    private int cooldownInMs = 700;
 
     // Start is called before the first frame update
     private void Start()
@@ -94,7 +98,19 @@ public class CharacterController : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1"))
             {
-                Attack();
+                if (cooldownCounter == 0)
+                {
+                    Attack();
+                    cooldownCounter = Environment.TickCount;
+                }
+                else
+                {
+                    if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                    {
+                        Attack();
+                        cooldownCounter = Environment.TickCount;
+                    }
+                }
             }
 
             HandleMovement(horizontalInput);
@@ -110,7 +126,7 @@ public class CharacterController : MonoBehaviour
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            if(enemiesToDamage[i] != null)
+            if (enemiesToDamage[i] != null)
             {
                 enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
             }
@@ -125,10 +141,6 @@ public class CharacterController : MonoBehaviour
 
     private void HandleMovement(float horizontalInput)
     {
-        if (myRigidbody.velocity.y < 0)
-        {
-            myAnimator.SetBool("Land", true);
-        }
 
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
@@ -142,9 +154,17 @@ public class CharacterController : MonoBehaviour
             myRigidbody.velocity = new Vector2(horizontalInput * speed, myRigidbody.velocity.y);
 
             myAnimator.SetFloat("Spd", Mathf.Abs(horizontalInput));
+
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, 0.1f, enemyLayerMask);
+
+            for (int i = 0; i < enemiesToDamage.Length; i++)
+            {
+                enemiesToDamage[i].GetComponent<Enemy>().StopMovement();
+            }
         }
 
     }
+
 
     private void Flip()
     {
@@ -176,10 +196,14 @@ public class CharacterController : MonoBehaviour
     {
         bool r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, groundLayer) > 0;
 
+        if (!r)
+        {
+            r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, enemyLayerMask) > 0;
+        }
+
         if (r)
         {
             myAnimator.SetTrigger("Jmp");
-            myAnimator.SetBool("Land", false);
         }
 
         return r;
@@ -239,17 +263,17 @@ public class CharacterController : MonoBehaviour
 
     public void LifeSteal(int hp, int ap)
     {
-        if(isAlive)
+        if (isAlive)
         {
             healthPoints += hp;
             armourPoints += ap;
 
-            if(healthPoints > 100)
+            if (healthPoints > 100)
             {
                 healthPoints = 100;
             }
 
-            if(armourPoints > 100)
+            if (armourPoints > 100)
             {
                 armourPoints = 100;
             }
@@ -269,6 +293,5 @@ public class CharacterController : MonoBehaviour
         lifebarImage.fillAmount = healthPoints / 100f;
         armourbarImage.fillAmount = armourPoints / 100f;
     }
-
 
 }
