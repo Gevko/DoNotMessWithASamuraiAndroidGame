@@ -298,6 +298,7 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+  damage: 10
   speed: 4
   lifebarImage: {fileID: 731569907}
   myCanvas: {fileID: 2111228251}
@@ -416,6 +417,7 @@ GameObject:
   - component: {fileID: 180498012}
   - component: {fileID: 180498011}
   - component: {fileID: 180498010}
+  - component: {fileID: 180498013}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -488,6 +490,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180498013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180498009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63fe0764c439d44fbdd585cd57a6bf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 1309983231}
+  smoothTime: 0.2
 --- !u!1 &261158024
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +682,7 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+  damage: 10
   speed: 3
   lifebarImage: {fileID: 1151230476}
   myCanvas: {fileID: 1601613889}
@@ -1355,6 +1372,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundCheck: {fileID: 1566432820}
+  lifebarImage: {fileID: 0}
+  armourbarImage: {fileID: 0}
+  healthBarCanvas: {fileID: 0}
+  attackPos: {fileID: 0}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  damage: 25
 --- !u!95 &1309983229
 Animator:
   serializedVersion: 3

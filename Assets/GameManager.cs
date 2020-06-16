@@ -8,7 +8,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; } = null;
 
+    private int enemiesKilled = 0;
+
     private int level = 1;
+
+    [SerializeField]
+    private GameObject HUD;
 
     private void Awake()
     {
@@ -21,6 +26,17 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
+
+    private void Start()
+    {
+        UpdateEnemiesKilled();
+    }
+
+    private void UpdateEnemiesKilled()
+    {
+        UIManager.Instance.UpdateEnemyCounter(enemiesKilled);
+    }
+
 
     public void LoadNextLevel ()
     {
@@ -42,11 +58,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            print(levelToLoad);
-            print(Application.CanStreamedLevelBeLoaded("Level" + levelToLoad));
+            //print(levelToLoad);
+            //print(Application.CanStreamedLevelBeLoaded("Level" + levelToLoad));
             if (Application.CanStreamedLevelBeLoaded("Level" + levelToLoad))
             {
-                //HUD.SetActive(true);
+                HUD.SetActive(true);
                 asyncLoad = SceneManager.LoadSceneAsync("Level" + levelToLoad);
             }
         }
@@ -57,5 +73,12 @@ public class GameManager : MonoBehaviour
             yield return null;
         }*/
         yield return null;
+    }
+
+    public void EnemyKilled ()
+    {
+        enemiesKilled++;
+        print("enemiesKilled: " + enemiesKilled.ToString());
+        UpdateEnemiesKilled();
     }
 }

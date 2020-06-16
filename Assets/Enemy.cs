@@ -118,14 +118,14 @@ public class Enemy : MonoBehaviour
         {
             if (cooldownCounter == 0)
             {
-                //Attack();
+                Attack();
                 cooldownCounter = Environment.TickCount;
             }
             else
             {
                 if (Environment.TickCount - cooldownCounter > cooldownInMs)
                 {
-                    //Attack();
+                    Attack();
                     cooldownCounter = Environment.TickCount;
                 }
             }
@@ -183,6 +183,8 @@ public class Enemy : MonoBehaviour
         isAlive = false;
 
         myAnimator.SetTrigger("Die");
+
+        GameManager.Instance.EnemyKilled();
 
     }
 
