@@ -108,35 +108,37 @@ public class Enemy : MonoBehaviour
         {
             Flip();
         }*/
-
-        Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
-            playerCheck.position,
-            attackRange,
-            playerLayerMask);
-
-        if (playerColliders.Length != 0)
+        if (isAlive)
         {
-            if (cooldownCounter == 0)
+            Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
+                playerCheck.position,
+                attackRange,
+                playerLayerMask);
+
+            if (playerColliders.Length != 0)
             {
-                //Attack();
-                cooldownCounter = Environment.TickCount;
-            }
-            else
-            {
-                if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                if (cooldownCounter == 0)
                 {
-                    //Attack();
+                    Attack();
                     cooldownCounter = Environment.TickCount;
                 }
+                else
+                {
+                    if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                    {
+                        Attack();
+                        cooldownCounter = Environment.TickCount;
+                    }
+                }
             }
+            //if (Physics2D.OverlapPointNonAlloc(
+            //    playerCheck.position,
+            //    damageResults,
+            //    damageLayerMask) != 0)
+            //{
+            //    TakeDamage(25);
+            //}
         }
-        //if (Physics2D.OverlapPointNonAlloc(
-        //    playerCheck.position,
-        //    damageResults,
-        //    damageLayerMask) != 0)
-        //{
-        //    TakeDamage(25);
-        //}
     }
 
     private void Flip()
@@ -177,7 +179,7 @@ public class Enemy : MonoBehaviour
     {
         if (playerCollider != null)
         {
-            playerCollider.GetComponent<CharacterController>().LifeSteal(5, 5);
+            playerCollider.GetComponent<CharacterController>().AddCharacterHpAp(5, 5);
         }
 
         isAlive = false;

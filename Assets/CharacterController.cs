@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5f;
+    private float speed = 6f;
 
     [SerializeField]
-    private float jumpForce = 7f;
+    private float jumpForce = 10f;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -35,9 +35,12 @@ public class CharacterController : MonoBehaviour
     private LayerMask enemyLayerMask;
 
     [SerializeField]
+    private LayerMask armourBonusLayerMask;
+
+    [SerializeField]
     private int damage = 25;
 
-    private float attackRange = 0.2f;
+    private float attackRange = 0.5f;
 
     private int healthPoints = 100;
 
@@ -141,6 +144,7 @@ public class CharacterController : MonoBehaviour
 
     private void HandleMovement(float horizontalInput)
     {
+        DetectArmourBonus();
 
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
@@ -261,7 +265,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void LifeSteal(int hp, int ap)
+    public void AddCharacterHpAp(int hp, int ap)
     {
         if (isAlive)
         {
@@ -294,4 +298,20 @@ public class CharacterController : MonoBehaviour
         armourbarImage.fillAmount = armourPoints / 100f;
     }
 
+    private void DetectArmourBonus()
+    {
+        Collider2D[] shieldsToDetect = Physics2D.OverlapCircleAll(attackPos.position, 0.1f, armourBonusLayerMask);
+
+        if(shieldsToDetect.Length > 0)
+        {
+            for(int i = 0; i < shieldsToDetect.Length; i++)
+            {
+                // destroys shield
+                // adds 50 ap + 50 shield
+                shieldsToDetect[i].GetComponent<ArmourBonusController>().Destroy();
+                AddCharacterHpAp(50, 50);
+            }
+        }
+
+    }
 }

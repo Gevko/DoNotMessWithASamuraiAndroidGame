@@ -21,7 +21,8 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        StartCoroutine(Spawn());
+#warning Descomentar isto quando implementado
+        //StartCoroutine(Spawn());
     }
 
     private IEnumerator Spawn()
