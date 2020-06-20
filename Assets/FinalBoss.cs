@@ -50,6 +50,9 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     private Canvas myCanvas;
 
+    [SerializeField]
+    private float moveSpeed = 5f;
+
     private Camera mainCamera;
 
     private Transform player;
@@ -62,7 +65,7 @@ public class FinalBoss : MonoBehaviour
 
     private int cooldownCounter = 0;
 
-    private int cooldownInMs = 1000;
+    private int cooldownInMs = 1500;
 
     private float shootVelocity = 5f;
 
@@ -118,37 +121,19 @@ public class FinalBoss : MonoBehaviour
             playerLayerMask);
 
 
-        if (playerColliders.Length != 0)
-        {
-            if (cooldownCounter == 0)
+           if (cooldownCounter == 0)
             {
-                Attack();
-                cooldownCounter = Environment.TickCount;
+               if(playerColliders.Length > 0) { Attack(); } else { AttackLongRange(); }
+               cooldownCounter = Environment.TickCount;
             }
             else
             {
-                if (Environment.TickCount - cooldownCounter > cooldownInMs)
-                {
-                    Attack();
-                    cooldownCounter = Environment.TickCount;
-                }
+             if (Environment.TickCount - cooldownCounter > cooldownInMs)
+             {
+               if(playerColliders.Length > 0) { Attack(); } else { AttackLongRange(); }
+              cooldownCounter = Environment.TickCount;
+              }
             }
-        } else
-        {
-            if (cooldownCounter == 0)
-            {
-                AttackLongRange();
-                cooldownCounter = Environment.TickCount;
-            }
-            else
-            {
-                if (Environment.TickCount - cooldownCounter > cooldownInMs)
-                {
-                    AttackLongRange();
-                    cooldownCounter = Environment.TickCount;
-                }
-            }
-        }
         //if (Physics2D.OverlapPointNonAlloc(
         //    playerCheck.position,
         //    damageResults,
@@ -180,10 +165,13 @@ public class FinalBoss : MonoBehaviour
     {
         if (isAlive)
         {
+            Vector3 direction = player.transform.position - playerCheck.transform.position;
+            direction.Normalize();
+            float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             myAnimator.SetTrigger("AttackLongRange");
-            GameObject star =
-            Instantiate(kunaiPrefab, playerCheck.position, Quaternion.Euler(0, 0, 90));
-            star.GetComponent<Rigidbody2D>().velocity = playerCheck.right * shootVelocity;
+            GameObject kunai =
+            Instantiate(kunaiPrefab, playerCheck.position, Quaternion.Euler(0, 0, rotation - 90));
+            kunai.GetComponent<Rigidbody2D>().velocity = (player.transform.position - playerCheck.transform.position).normalized * moveSpeed;
         }
     }
 
@@ -210,7 +198,7 @@ public class FinalBoss : MonoBehaviour
     {
         if (playerCollider != null)
         {
-            playerCollider.GetComponent<CharacterController>().LifeSteal(5, 5);
+            playerCollider.GetComponent<CharacterController>().AddCharacterHpAp(5, 5);
         }
 
         isAlive = false;
@@ -235,6 +223,4 @@ public class FinalBoss : MonoBehaviour
     {
         myRigidbody.velocity = Vector3.zero;
     }
-
-
 }

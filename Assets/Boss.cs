@@ -178,7 +178,7 @@ public class Boss : MonoBehaviour
     {
         if (playerCollider != null)
         {
-            playerCollider.GetComponent<CharacterController>().LifeSteal(5, 5);
+            playerCollider.GetComponent<CharacterController>().AddCharacterHpAp(5, 5);
         }
 
         isAlive = false;

@@ -30,14 +30,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int damage = 10;
 
+    [SerializeField]
+    private float speed = 1f;
+
     private Collider2D[] results = new Collider2D[1];
 
     private Collider2D[] playerResults = new Collider2D[1];
 
     private Collider2D[] damageResults = new Collider2D[1];
-
-    [SerializeField]
-    private float speed = 1f;
 
     private float life = 100f;
 
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
 
     private int cooldownCounter = 0;
 
-    private int cooldownInMs = 1000;
+    private int cooldownInMs = 2000;
 
     private void Awake()
     {
@@ -108,35 +108,37 @@ public class Enemy : MonoBehaviour
         {
             Flip();
         }*/
-
-        Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
-            playerCheck.position,
-            attackRange,
-            playerLayerMask);
-
-        if (playerColliders.Length != 0)
+        if (isAlive)
         {
-            if (cooldownCounter == 0)
+            Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
+                playerCheck.position,
+                attackRange,
+                playerLayerMask);
+
+            if (playerColliders.Length != 0)
             {
-                Attack();
-                cooldownCounter = Environment.TickCount;
-            }
-            else
-            {
-                if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                if (cooldownCounter == 0)
                 {
                     Attack();
                     cooldownCounter = Environment.TickCount;
                 }
+                else
+                {
+                    if (Environment.TickCount - cooldownCounter > cooldownInMs)
+                    {
+                        Attack();
+                        cooldownCounter = Environment.TickCount;
+                    }
+                }
             }
+            //if (Physics2D.OverlapPointNonAlloc(
+            //    playerCheck.position,
+            //    damageResults,
+            //    damageLayerMask) != 0)
+            //{
+            //    TakeDamage(25);
+            //}
         }
-        //if (Physics2D.OverlapPointNonAlloc(
-        //    playerCheck.position,
-        //    damageResults,
-        //    damageLayerMask) != 0)
-        //{
-        //    TakeDamage(25);
-        //}
     }
 
     private void Flip()
@@ -151,6 +153,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         myAnimator.SetTrigger("Attack");
+
         GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>().TakeDamage(damage);
     }
 
@@ -159,6 +162,7 @@ public class Enemy : MonoBehaviour
         if (isAlive)
         {
             myAnimator.SetTrigger("TookDamage");
+
             life -= damage;
             if (life < 0f)
             {
@@ -177,14 +181,12 @@ public class Enemy : MonoBehaviour
     {
         if (playerCollider != null)
         {
-            playerCollider.GetComponent<CharacterController>().LifeSteal(5, 5);
+            playerCollider.GetComponent<CharacterController>().AddCharacterHpAp(5, 5);
         }
 
         isAlive = false;
 
         myAnimator.SetTrigger("Die");
-
-        GameManager.Instance.EnemyKilled();
 
     }
 
@@ -202,4 +204,5 @@ public class Enemy : MonoBehaviour
     {
         myRigidbody.velocity = Vector3.zero;
     }
+
 }

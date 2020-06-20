@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5f;
+    private float speed = 6f;
 
     [SerializeField]
-    private float jumpForce = 7f;
+    private float jumpForce = 10f;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -33,15 +33,26 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField]
     private LayerMask enemyLayerMask;
+
     [SerializeField]
-    private LayerMask bossLayerMask;
-    [SerializeField]
-    private LayerMask finalBossLayerMask;
+    private LayerMask armourBonusLayerMask;
 
     [SerializeField]
     private int damage = 25;
 
-    private float attackRange = 0.2f;
+    [SerializeField]
+    private GameObject rDmgPoints;
+
+    [SerializeField]
+    private GameObject gDmgPoints;
+    // estes 2 sao para sair
+   /* [SerializeField]
+    private GameObject dialogueText;
+
+    [SerializeField]
+    private GameObject dialogueBox;
+    */
+    private float attackRange = 0.5f;
 
     private int healthPoints = 100;
 
@@ -55,7 +66,7 @@ public class CharacterController : MonoBehaviour
 
     private bool jump = false;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     private Collider2D[] results = new Collider2D[1];
 
@@ -80,6 +91,19 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // isto é para sair
+        /*if (dialogueText != null)
+        {
+            Renderer r = dialogueText.GetComponent<Renderer>();
+
+            TextMesh mr = dialogueText.GetComponent<TextMesh>();
+
+            r.sortingLayerName = "PlayerLayer";
+
+            mr.text = "batatas fritas com arroz\nbatatatatattatatata\nagagagaggagagagaga\nbsbsjsjsjsbjs";
+        }*/
+
+
         if (isAlive)
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -127,25 +151,25 @@ public class CharacterController : MonoBehaviour
         myAnimator.SetTrigger("Attack");
 
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyLayerMask);
-        Collider2D[] bossToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, bossLayerMask);
-        Collider2D[] finalBossToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, finalBossLayerMask);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
             if (enemiesToDamage[i] != null)
             {
-                enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                if(enemiesToDamage[i].GetComponent<Enemy>() != null) {
+                  enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                }
+
+                if(enemiesToDamage[i].GetComponent<Boss>() != null) {
+                  enemiesToDamage[i].GetComponent<Boss>().TakeDamage(damage);
+                }
+
+                if(enemiesToDamage[i].GetComponent<FinalBoss>() != null) {
+                  enemiesToDamage[i].GetComponent<FinalBoss>().TakeDamage(damage);
+                }
+
+                AppearDmgPoints(damage, false, false);
             }
-        }
-
-        if (bossToDamage.Length != 0)
-        {
-            bossToDamage[0].GetComponent<Boss>().TakeDamage(damage);
-        }
-
-        if (finalBossToDamage.Length != 0)
-        {
-            finalBossToDamage[0].GetComponent<FinalBoss>().TakeDamage(damage);
         }
     }
 
@@ -157,6 +181,7 @@ public class CharacterController : MonoBehaviour
 
     private void HandleMovement(float horizontalInput)
     {
+        DetectArmourBonus();
 
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
@@ -175,7 +200,15 @@ public class CharacterController : MonoBehaviour
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
-                enemiesToDamage[i].GetComponent<Enemy>().StopMovement();
+                if(enemiesToDamage[i].GetComponent<Enemy>() != null) {
+                    enemiesToDamage[i].GetComponent<Enemy>().StopMovement();
+                }
+                if(enemiesToDamage[i].GetComponent<Boss>() != null) {
+                    enemiesToDamage[i].GetComponent<Boss>().StopMovement();
+                }
+                if(enemiesToDamage[i].GetComponent<FinalBoss>() != null) {
+                    enemiesToDamage[i].GetComponent<FinalBoss>().StopMovement();
+                }
             }
         }
 
@@ -188,7 +221,12 @@ public class CharacterController : MonoBehaviour
         localRotation.y += 180f;
         transform.localEulerAngles = localRotation;
         healthBarCanvas.transform.forward = mainCamera.transform.forward;
-
+        // isto é para sair
+        /*if (dialogueBox != null && dialogueText != null)
+        {
+            dialogueBox.transform.forward = mainCamera.transform.forward;
+            dialogueText.transform.forward = mainCamera.transform.forward;
+        }*/
     }
 
     private void FixedUpdate()
@@ -217,6 +255,11 @@ public class CharacterController : MonoBehaviour
             r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, enemyLayerMask) > 0;
         }
 
+        if (!r)
+        {
+           r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, armourBonusLayerMask) > 0;
+        }
+
         if (r)
         {
             myAnimator.SetTrigger("Jmp");
@@ -241,6 +284,8 @@ public class CharacterController : MonoBehaviour
     {
         if (isAlive)
         {
+
+            AppearDmgPoints(dmg, true, false);
 
             if (armourPoints > 0)
             {
@@ -277,7 +322,35 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void LifeSteal(int hp, int ap)
+    private void AddCharacterLife(int life)
+    {
+        if(isAlive)
+        {
+            AppearDmgPoints(life, false, true);
+            if (healthPoints < 100)
+            {
+                int h = life - healthPoints;
+
+                healthPoints += h;
+
+                life -= h;
+            }
+
+            if(life > 0)
+            {
+                armourPoints += life;
+
+                if(armourPoints > 100)
+                {
+                    armourPoints = 100;
+                }
+            }
+
+            updateBars();
+        }
+    }
+
+    public void AddCharacterHpAp(int hp, int ap)
     {
         if (isAlive)
         {
@@ -310,4 +383,49 @@ public class CharacterController : MonoBehaviour
         armourbarImage.fillAmount = armourPoints / 100f;
     }
 
+    private void DetectArmourBonus()
+    {
+        Collider2D[] shieldsToDetect = Physics2D.OverlapCircleAll(attackPos.position, 0.1f, armourBonusLayerMask);
+
+        if(shieldsToDetect.Length > 0)
+        {
+            for(int i = 0; i < shieldsToDetect.Length; i++)
+            {
+                // destroys shield
+                shieldsToDetect[i].GetComponent<ArmourBonusController>().Destroy();
+
+  
+                AddCharacterLife(100);
+            }
+        }
+
+    }
+
+    private void AppearDmgPoints(int dmg, bool isTaken, bool isHealth) {
+        GameObject dmgPoints = Instantiate(isTaken ? rDmgPoints : gDmgPoints, transform.position, Quaternion.identity);
+
+        Renderer r = dmgPoints.GetComponent<Renderer>();
+
+        TextMesh mr = dmgPoints.GetComponent<TextMesh>();
+
+        r.sortingLayerName = "PlayerLayer";
+
+        if(!isHealth) {
+
+          mr.text = isTaken ? "-" + " " + dmg.ToString() : "+" + " " + dmg.ToString();
+
+        } else {
+
+          mr.text = dmg.ToString() + " Life";
+
+        }
+
+        StartCoroutine(WaitAndDestroy(dmgPoints));
+
+    }
+   private IEnumerator WaitAndDestroy(GameObject g)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(g);
+    }
 }
