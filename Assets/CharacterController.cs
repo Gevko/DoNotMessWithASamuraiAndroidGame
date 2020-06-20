@@ -39,6 +39,12 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField]
     private int damage = 25;
+    // estes 2 sao para sair
+    [SerializeField]
+    private GameObject dialogueText;
+
+    [SerializeField]
+    private GameObject dialogueBox;
 
     private float attackRange = 0.5f;
 
@@ -54,7 +60,7 @@ public class CharacterController : MonoBehaviour
 
     private bool jump = false;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     private Collider2D[] results = new Collider2D[1];
 
@@ -79,6 +85,19 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // isto é para sair
+        if (dialogueText != null)
+        {
+            Renderer r = dialogueText.GetComponent<Renderer>();
+
+            TextMesh mr = dialogueText.GetComponent<TextMesh>();
+
+            r.sortingLayerName = "PlayerLayer";
+
+            mr.text = "batatas fritas com arroz\nbatatatatattatatata\nagagagaggagagagaga\nbsbsjsjsjsbjs";
+        }
+
+
         if (isAlive)
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -176,7 +195,12 @@ public class CharacterController : MonoBehaviour
         localRotation.y += 180f;
         transform.localEulerAngles = localRotation;
         healthBarCanvas.transform.forward = mainCamera.transform.forward;
-
+        // isto é para sair
+        if (dialogueBox != null && dialogueText != null)
+        {
+            dialogueBox.transform.forward = mainCamera.transform.forward;
+            dialogueText.transform.forward = mainCamera.transform.forward;
+        }
     }
 
     private void FixedUpdate()
@@ -203,6 +227,11 @@ public class CharacterController : MonoBehaviour
         if (!r)
         {
             r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, enemyLayerMask) > 0;
+        }
+
+        if (!r)
+        {
+           r = Physics2D.OverlapPointNonAlloc(groundCheck.position, results, armourBonusLayerMask) > 0;
         }
 
         if (r)
@@ -265,6 +294,33 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private void AddCharacterLife(int life)
+    {
+        if(isAlive)
+        {
+            if (healthPoints < 100)
+            {
+                int h = life - healthPoints;
+
+                healthPoints += h;
+
+                life -= h;
+            }
+
+            if(life > 0)
+            {
+                armourPoints += life;
+
+                if(armourPoints > 100)
+                {
+                    armourPoints = 100;
+                }
+            }
+
+            updateBars();
+        }
+    }
+
     public void AddCharacterHpAp(int hp, int ap)
     {
         if (isAlive)
@@ -309,7 +365,7 @@ public class CharacterController : MonoBehaviour
                 // destroys shield
                 // adds 50 ap + 50 shield
                 shieldsToDetect[i].GetComponent<ArmourBonusController>().Destroy();
-                AddCharacterHpAp(50, 50);
+                AddCharacterLife(100);
             }
         }
 

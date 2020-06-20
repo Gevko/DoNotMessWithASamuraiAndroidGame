@@ -18,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
 
     private bool isFirst = true;
 
+    private int numSpawnedEnemies = 0;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -34,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
 
             isFirst = isFirst ? false : true;
+
         }
     }
 }

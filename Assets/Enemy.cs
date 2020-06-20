@@ -30,14 +30,17 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int damage = 10;
 
+    [SerializeField]
+    private float speed = 1f;
+
+    [SerializeField]
+    private GameObject damagePoints;
+
     private Collider2D[] results = new Collider2D[1];
 
     private Collider2D[] playerResults = new Collider2D[1];
 
     private Collider2D[] damageResults = new Collider2D[1];
-
-    [SerializeField]
-    private float speed = 1f;
 
     private float life = 100f;
 
@@ -61,7 +64,7 @@ public class Enemy : MonoBehaviour
 
     private int cooldownCounter = 0;
 
-    private int cooldownInMs = 1000;
+    private int cooldownInMs = 2000;
 
     private void Awake()
     {
@@ -153,14 +156,20 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         myAnimator.SetTrigger("Attack");
+
         GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>().TakeDamage(damage);
+        ShowDamagePoints(damage, false);
+
     }
 
     public void TakeDamage(float damage)
     {
         if (isAlive)
         {
+            ShowDamagePoints(damage);
+
             myAnimator.SetTrigger("TookDamage");
+
             life -= damage;
             if (life < 0f)
             {
@@ -201,5 +210,26 @@ public class Enemy : MonoBehaviour
     public void StopMovement()
     {
         myRigidbody.velocity = Vector3.zero;
+    }
+
+    private void ShowDamagePoints(float dmg, bool isTaken = true)
+    {
+        GameObject dmgPoints = Instantiate(damagePoints, transform.position, Quaternion.identity);
+
+        Renderer r = dmgPoints.GetComponent<Renderer>();
+
+        TextMesh mr = dmgPoints.GetComponent<TextMesh>();
+
+        r.sortingLayerName = "PlayerLayer";
+
+        mr.text = isTaken ? "+" + " " + dmg.ToString() : "-" + " " + dmg.ToString();
+
+        StartCoroutine(WaitAndDestroy(dmgPoints));
+    }
+
+    private IEnumerator WaitAndDestroy(GameObject g)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(g);
     }
 }
