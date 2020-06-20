@@ -33,6 +33,10 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField]
     private LayerMask enemyLayerMask;
+    [SerializeField]
+    private LayerMask bossLayerMask;
+    [SerializeField]
+    private LayerMask finalBossLayerMask;
 
     [SerializeField]
     private int damage = 25;
@@ -123,6 +127,8 @@ public class CharacterController : MonoBehaviour
         myAnimator.SetTrigger("Attack");
 
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyLayerMask);
+        Collider2D[] bossToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, bossLayerMask);
+        Collider2D[] finalBossToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, finalBossLayerMask);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
@@ -130,6 +136,16 @@ public class CharacterController : MonoBehaviour
             {
                 enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
             }
+        }
+
+        if (bossToDamage.Length != 0)
+        {
+            bossToDamage[0].GetComponent<Boss>().TakeDamage(damage);
+        }
+
+        if (finalBossToDamage.Length != 0)
+        {
+            finalBossToDamage[0].GetComponent<FinalBoss>().TakeDamage(damage);
         }
     }
 

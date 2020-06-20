@@ -18,8 +18,8 @@ TagManager:
   - PlayerExample
   - EnemyLayer
   - DamageLayer
-  - 
-  - 
+  - BossLayer
+  - FinalBossLayer
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: LifeBarLayer
     uniqueID: 746648927
+    locked: 0
+  - name: Boss Layer
+    uniqueID: 2740177247
     locked: 0
