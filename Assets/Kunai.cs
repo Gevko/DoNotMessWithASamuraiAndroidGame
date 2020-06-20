@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Kunai : MonoBehaviour
 {
+    
     [SerializeField]
     private int damage = 50;
 

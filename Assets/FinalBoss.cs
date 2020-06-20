@@ -50,6 +50,9 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     private Canvas myCanvas;
 
+    [SerializeField]
+    private float moveSpeed = 5f;
+
     private Camera mainCamera;
 
     private Transform player;
@@ -180,10 +183,13 @@ public class FinalBoss : MonoBehaviour
     {
         if (isAlive)
         {
+            Vector3 direction = player.transform.position - playerCheck.transform.position;
+            direction.Normalize();
+            float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             myAnimator.SetTrigger("AttackLongRange");
-            GameObject star =
-            Instantiate(kunaiPrefab, playerCheck.position, Quaternion.Euler(0, 0, 90));
-            star.GetComponent<Rigidbody2D>().velocity = playerCheck.right * shootVelocity;
+            GameObject kunai =
+            Instantiate(kunaiPrefab, playerCheck.position, Quaternion.Euler(0, 0, rotation - 90));
+            kunai.GetComponent<Rigidbody2D>().velocity = (player.transform.position - playerCheck.transform.position).normalized * moveSpeed;
         }
     }
 
