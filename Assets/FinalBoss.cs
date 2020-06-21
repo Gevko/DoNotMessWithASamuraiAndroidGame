@@ -85,7 +85,7 @@ public class FinalBoss : MonoBehaviour
 
     private void Update()
     {
-        if (isAlive)
+        if (isAlive && GameManager.Instance.allowMoving)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             if (player.position.x > transform.position.x && !lookingRight)

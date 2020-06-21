@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
         {
             Flip();
         }*/
-        if (isAlive)
+        if (isAlive && GameManager.Instance.allowMoving)
         {
             Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
                 playerCheck.position,

@@ -106,6 +106,9 @@ public class CharacterController : MonoBehaviour
 
         if (isAlive)
         {
+            if(GameManager.Instance.allowMoving) {
+            
+                
             float horizontalInput = Input.GetAxisRaw("Horizontal");
 
             if (transform.right.x > 0 && horizontalInput < 0)
@@ -143,6 +146,10 @@ public class CharacterController : MonoBehaviour
 
             HandleMovement(horizontalInput);
 
+            } else {
+                // se não me posso mexer - o fire1 = proxima mensagem
+                GameManager.Instance.HandleNextMessage();
+            }
         }
     }
 

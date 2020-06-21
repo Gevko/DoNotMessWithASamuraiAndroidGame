@@ -76,7 +76,7 @@ public class Boss : MonoBehaviour
     }
     private void Update()
     {
-        if (isAlive)
+        if (isAlive && GameManager.Instance.allowMoving)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             print(player.position.x > transform.position.x);

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private int level = 1;
 
+    public bool allowMoving = true;
+
     [SerializeField]
     private GameObject HUD;
 
@@ -80,5 +82,9 @@ public class GameManager : MonoBehaviour
         enemiesKilled++;
         print("enemiesKilled: " + enemiesKilled.ToString());
         UpdateEnemiesKilled();
+    }
+
+    public void HandleNextMessage() {
+        
     }
 }
