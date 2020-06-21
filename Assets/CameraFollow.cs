@@ -23,6 +23,7 @@ public class CameraFollow : MonoBehaviour
         {
             Vector3 targetPosition = targetTransform.position;
             targetPosition.z = zOffset;
+            targetPosition.y = transform.position.y;
 
             transform.position = Vector3.SmoothDamp(
                 transform.position,

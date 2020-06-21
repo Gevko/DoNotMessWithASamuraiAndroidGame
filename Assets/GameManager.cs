@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour
             //ResetScore();
             asyncLoad = SceneManager.LoadSceneAsync("Menu");
         }
+        if (levelToLoad == 1)
+        {
+            asyncLoad = SceneManager.LoadSceneAsync("InsideScene");
+        }
         else
         {
             //print(levelToLoad);
