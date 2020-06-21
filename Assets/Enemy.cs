@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     private float life = 100f;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     [SerializeField]
     private Image lifebarImage;
@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (isAlive)
+        if (isAlive && GameManager.Instance.allowMoving)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             print(player.position.x > transform.position.x);

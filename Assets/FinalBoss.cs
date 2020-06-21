@@ -17,7 +17,7 @@ public class FinalBoss : MonoBehaviour
     private Transform groundCheck;
 
     [SerializeField]
-    private Transform playerCheck;
+    public Transform playerCheck;
 
     [SerializeField]
     private LayerMask groundLayerMask;
@@ -42,7 +42,7 @@ public class FinalBoss : MonoBehaviour
 
     private float life = 100f;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     [SerializeField]
     private Image lifebarImage;
@@ -115,7 +115,8 @@ public class FinalBoss : MonoBehaviour
             Flip();
         }*/
 
-        Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
+       if(isAlive && GameManager.Instance.allowMoving) {
+         Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
             playerCheck.position,
             attackRange,
             playerLayerMask);
@@ -141,6 +142,7 @@ public class FinalBoss : MonoBehaviour
         //{
         //    TakeDamage(25);
         //}
+        }
     }
 
     private void Flip()
@@ -171,7 +173,9 @@ public class FinalBoss : MonoBehaviour
             myAnimator.SetTrigger("AttackLongRange");
             GameObject kunai =
             Instantiate(kunaiPrefab, playerCheck.position, Quaternion.Euler(0, 0, rotation - 90));
-            kunai.GetComponent<Rigidbody2D>().velocity = (player.transform.position - playerCheck.transform.position).normalized * moveSpeed;
+         /*   if(kunai != null) {
+                        kunai.GetComponent<Rigidbody2D>().velocity = (player.transform.position - playerCheck.transform.position).normalized * moveSpeed;
+            }*/
         }
     }
 

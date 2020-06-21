@@ -40,7 +40,7 @@ public class Boss : MonoBehaviour
 
     private float life = 100f;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     [SerializeField]
     private Image lifebarImage;

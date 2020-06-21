@@ -163,19 +163,23 @@ public class CharacterController : MonoBehaviour
         {
             if (enemiesToDamage[i] != null)
             {
-                if(enemiesToDamage[i].GetComponent<Enemy>() != null) {
+                bool isAlive = false;
+                if(enemiesToDamage[i].GetComponent<Enemy>() != null && enemiesToDamage[i].GetComponent<Enemy>().isAlive) {
                   enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                   isAlive = true;
                 }
 
-                if(enemiesToDamage[i].GetComponent<Boss>() != null) {
+                if(enemiesToDamage[i].GetComponent<Boss>() != null && enemiesToDamage[i].GetComponent<Boss>().isAlive) {
                   enemiesToDamage[i].GetComponent<Boss>().TakeDamage(damage);
+                    isAlive = true;
                 }
 
-                if(enemiesToDamage[i].GetComponent<FinalBoss>() != null) {
+                if(enemiesToDamage[i].GetComponent<FinalBoss>() != null && enemiesToDamage[i].GetComponent<FinalBoss>().isAlive) {
                   enemiesToDamage[i].GetComponent<FinalBoss>().TakeDamage(damage);
+                    isAlive = true;
                 }
 
-                AppearDmgPoints(damage, false, false);
+                if(isAlive) { AppearDmgPoints(damage, false, false); }
             }
         }
     }
@@ -382,6 +386,7 @@ public class CharacterController : MonoBehaviour
     {
         isAlive = false;
         myAnimator.SetTrigger("Defeat");
+        GameManager.Instance.allowMoving = false;
     }
 
     private void updateBars()

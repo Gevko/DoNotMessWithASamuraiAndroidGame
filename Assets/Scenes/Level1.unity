@@ -248,6 +248,7 @@ MonoBehaviour:
     m_Bits: 2048
   damage: 10
   speed: 4
+  isAlive: 1
   lifebarImage: {fileID: 1605735800}
   myCanvas: {fileID: 1925808614}
 --- !u!95 &94609406
@@ -460,6 +461,7 @@ MonoBehaviour:
     m_Bits: 2048
   damage: 10
   speed: 3
+  isAlive: 1
   lifebarImage: {fileID: 1458850785}
   myCanvas: {fileID: 789458349}
 --- !u!50 &266301866
@@ -2666,6 +2668,11 @@ PrefabInstance:
     - target: {fileID: 1873511181197462384, guid: 749d36ca735381b42928ee5dd14d47ad,
         type: 3}
       propertyPath: m_Name
+      value: FinalBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873511181197462384, guid: 749d36ca735381b42928ee5dd14d47ad,
+        type: 3}
+      propertyPath: m_TagString
       value: FinalBoss
       objectReference: {fileID: 0}
     - target: {fileID: 1873511181197462398, guid: 749d36ca735381b42928ee5dd14d47ad,
