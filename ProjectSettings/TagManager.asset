@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - FinalBoss
+  - LeftLimit
+  - RightLimit
+  - TopLimit
+  - BottomLimit
   layers:
   - Default
   - TransparentFX

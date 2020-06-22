@@ -168,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &780754671916998820
 Transform:
   m_ObjectHideFlags: 0
@@ -327,6 +327,7 @@ MonoBehaviour:
     m_Bits: 2048
   damage: 50
   speed: 1
+  isAlive: 1
   lifebarImage: {fileID: 780754671684966095}
   myCanvas: {fileID: 780754672747890543}
 --- !u!1 &780754672747890540

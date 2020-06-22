@@ -36,11 +36,13 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBtwSpawns);
 
-            Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
+            Instantiate(firstBoss, transform.position, transform.rotation);
 
-            isFirst = isFirst ? false : true;
+            //Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
 
-            if(GameManager.Instance.level == 3 && !GameManager.Instance.firstBossSpawned && i == 2) {
+            //isFirst = isFirst ? false : true;
+
+            /*if(GameManager.Instance.level == 3 && !GameManager.Instance.firstBossSpawned && i == 2) {
                 print("1º boss spawn");
                 Instantiate(firstBoss, transform.position, transform.rotation);
                 GameManager.Instance.firstBossSpawned = true;
@@ -49,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
            if(GameManager.Instance.level == 5 && !GameManager.Instance.secondBossSpawned && i == 12) {
                 Instantiate(secondBoss, transform.position, transform.rotation);
                 GameManager.Instance.firstBossSpawned = false;
-            }
+            }*/
         }
     }
 }
