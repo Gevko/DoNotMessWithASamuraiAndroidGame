@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 1873511181197462398}
   m_Layer: 10
   m_Name: FinalBoss
-  m_TagString: Untagged
+  m_TagString: FinalBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,7 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355c17a04d9a63d4aa28c0ff07dfac70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kunaiPrefab: {fileID: 0}
+  kunaiPrefab: {fileID: 3109249982982137788, guid: 34138aadbf9c97648a195642d3480558,
+    type: 3}
   groundCheck: {fileID: 1873511180437588413}
   playerCheck: {fileID: 1873511181665501281}
   groundLayerMask:
@@ -310,6 +311,7 @@ MonoBehaviour:
     m_Bits: 2048
   damage: 20
   speed: 1
+  isAlive: 1
   lifebarImage: {fileID: 1873511182408424243}
   myCanvas: {fileID: 1873511181139735009}
   moveSpeed: 5

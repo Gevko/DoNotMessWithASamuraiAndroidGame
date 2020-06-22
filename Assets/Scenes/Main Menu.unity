@@ -151,6 +151,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCounterText: {fileID: 1360567839}
+  gameDialogWindow: {fileID: 4355257829863631451, guid: b1e19a6e6bfdf2140b3d73b15b92a15f,
+    type: 3}
+  player: {fileID: 3952485461360903224, guid: 4f423f55cfcc6904688c9030a722dd3a, type: 3}
+  gameDialogText: {fileID: 4912290312625291331, guid: ee4b3cdaeee296d4fb9abef4e0b0b8cb,
+    type: 3}
+  playerDialogWindow: {fileID: 3174882339667443801, guid: 1711b788d8bfae74a85a1498512f2eee,
+    type: 3}
+  playerDialogText: {fileID: 474121228714959715, guid: 9d2d873353fada14db3fcd1c5a519cea,
+    type: 3}
+  bossDialogWindow: {fileID: 0}
+  bossDialogText: {fileID: 0}
+  finalBossDialogWindow: {fileID: 0}
+  finalBossDialogText: {fileID: 0}
 --- !u!4 &305430816
 Transform:
   m_ObjectHideFlags: 0
@@ -314,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0d1c021fc00154ea648c00e6ceb7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMoving: 1
   HUD: {fileID: 1642378387}
 --- !u!4 &450272885
 Transform:

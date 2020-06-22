@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         print("LoadNextLevel");
         StartCoroutine(LoadNextLevelAsync(level));
         level++;
+        allowMoving = false;
     }
 
     private IEnumerator LoadNextLevelAsync(int levelToLoad)
@@ -84,7 +85,4 @@ public class GameManager : MonoBehaviour
         UpdateEnemiesKilled();
     }
 
-    public void HandleNextMessage() {
-        
-    }
 }

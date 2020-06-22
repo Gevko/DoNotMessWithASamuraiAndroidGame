@@ -18,8 +18,9 @@ public class Kunai : MonoBehaviour
 
     private void Start() {
 
-       
-        transform.GetComponent<Rigidbody2D>().velocity =  ( GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position -  GameObject.FindGameObjectWithTag("FinalBoss").GetComponent<FinalBoss>().playerCheck.transform.position).normalized * 5f;
+        transform.GetComponent<Rigidbody2D>().velocity =  ( 
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position -
+            GameObject.FindGameObjectWithTag("FinalBoss").GetComponent<FinalBoss>().playerCheck.transform.position).normalized * 5f;
 
     }
 

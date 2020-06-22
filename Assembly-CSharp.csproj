@@ -63,6 +63,7 @@
      <Compile Include="Assets\Enemy.cs" />
      <Compile Include="Assets\EnemySpawner.cs" />
      <Compile Include="Assets\FinalBoss.cs" />
+     <Compile Include="Assets\GameDialogController.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\Kunai.cs" />
      <Compile Include="Assets\Quantum Tek\Simple Menu\Scripts\SM_Audio.cs" />
@@ -78,6 +79,7 @@
      <Compile Include="Assets\Quantum Tek\Simple Menu\Scripts\SM_TabWindow.cs" />
      <Compile Include="Assets\Quantum Tek\Simple Menu\Scripts\SM_Window.cs" />
      <Compile Include="Assets\UIManager.cs" />
+     <Compile Include="Assets\YakuzaBuildingController.cs" />
      <None Include="Assets\Knight Files\Read Me.txt" />
      <None Include="Assets\BayatGames\Free Platform Game Assets\Readme.txt" />
      <None Include="Assets\Quantum Tek\Simple Menu\Fonts\Oxygen\OFL.txt" />

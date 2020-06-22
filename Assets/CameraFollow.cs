@@ -22,14 +22,16 @@ public class CameraFollow : MonoBehaviour
         if (targetTransform != null)
         {
             Vector3 targetPosition = targetTransform.position;
-            targetPosition.z = zOffset;
+           targetPosition.z = zOffset;
 
-            transform.position = Vector3.SmoothDamp(
+            targetPosition.y = transform.position.y;
+
+           transform.position = Vector3.SmoothDamp(
                 transform.position,
                 targetPosition,
                 ref cameraVelocity,
                 smoothTime
-                );
+                ); 
 
         }
     }

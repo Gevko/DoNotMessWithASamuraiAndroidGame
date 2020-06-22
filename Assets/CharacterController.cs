@@ -148,7 +148,9 @@ public class CharacterController : MonoBehaviour
 
             } else {
                 // se não me posso mexer - o fire1 = proxima mensagem
-                GameManager.Instance.HandleNextMessage();
+                if (Input.GetButtonDown("Fire1")) {
+                                UIManager.Instance.HandleNextMessage();
+                }
             }
         }
     }
@@ -242,7 +244,7 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (jump && IsGrounded())
+        if (jump && IsGrounded() && GameManager.Instance.allowMoving)
         {
             Jump();
         }
