@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Assets"
+    "\\Assets",
+    "\\ProjectSettings"
   ],
-  "SelectedNode": "\\Assets\\UIManager.cs",
+  "SelectedNode": "\\Assets\\CharacterController.cs",
   "PreviewInSolutionExplorer": false
 }
