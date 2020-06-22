@@ -10,9 +10,13 @@ public class GameManager : MonoBehaviour
 
     private int enemiesKilled = 0;
 
-    private int level = 1;
+    public int level = 1;
 
     public bool allowMoving = true;
+
+    public bool firstBossSpawned = false;
+
+    public bool secondBossSpawned = false;
 
     [SerializeField]
     private GameObject HUD;
@@ -63,15 +67,17 @@ public class GameManager : MonoBehaviour
         {
             asyncLoad = SceneManager.LoadSceneAsync("Level1");
         }
-        else
+        else if(levelToLoad == 2)
         {
+            asyncLoad = SceneManager.LoadSceneAsync("InsideScene");
+
             //print(levelToLoad);
             //print(Application.CanStreamedLevelBeLoaded("Level" + levelToLoad));
-            if (Application.CanStreamedLevelBeLoaded("Level" + levelToLoad))
+         /*   if (Application.CanStreamedLevelBeLoaded("Level" + levelToLoad))
             {
                 HUD.SetActive(true);
                 asyncLoad = SceneManager.LoadSceneAsync("Level" + levelToLoad);
-            }
+            } */
         }
 
         /*while (!asyncLoad.isDone)

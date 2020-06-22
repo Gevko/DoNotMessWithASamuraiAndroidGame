@@ -100,3 +100,7 @@ MonoBehaviour:
     type: 3}
   enemySecondType: {fileID: 5216215894449915173, guid: 827edcdb6a5471545adc74b421af381a,
     type: 3}
+  firstBoss: {fileID: 1873511181197462384, guid: 749d36ca735381b42928ee5dd14d47ad,
+    type: 3}
+  secondBoss: {fileID: 1873511181197462384, guid: 749d36ca735381b42928ee5dd14d47ad,
+    type: 3}

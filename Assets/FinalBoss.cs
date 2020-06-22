@@ -40,7 +40,7 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
 
-    private float life = 100f;
+    private float life = 250f;
 
     public bool isAlive = true;
 
@@ -80,6 +80,7 @@ public class FinalBoss : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //GameManager.Instance.allowMoving = false;
         UpdateLifebarImage();
     }
 

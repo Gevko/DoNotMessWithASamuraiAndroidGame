@@ -16,6 +16,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject enemySecondType;
 
+    [SerializeField]
+    private GameObject firstBoss;
+
+    [SerializeField]
+    private GameObject secondBoss;
+
     private bool isFirst = true;
 
     // Start is called before the first frame update
@@ -33,6 +39,17 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
 
             isFirst = isFirst ? false : true;
+
+            if(GameManager.Instance.level == 3 && !GameManager.Instance.firstBossSpawned && i == 2) {
+                print("1º boss spawn");
+                Instantiate(firstBoss, transform.position, transform.rotation);
+                GameManager.Instance.firstBossSpawned = true;
+            }
+
+           if(GameManager.Instance.level == 5 && !GameManager.Instance.secondBossSpawned && i == 12) {
+                Instantiate(secondBoss, transform.position, transform.rotation);
+                GameManager.Instance.firstBossSpawned = false;
+            }
         }
     }
 }

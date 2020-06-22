@@ -28,10 +28,10 @@ public class Enemy : MonoBehaviour
     private LayerMask damageLayerMask;
 
     [SerializeField]
-    private int damage = 10;
+    private int damage = 2;
 
     [SerializeField]
-    private float speed = 1f;
+    private float speed = 2f;
 
     private Collider2D[] results = new Collider2D[1];
 

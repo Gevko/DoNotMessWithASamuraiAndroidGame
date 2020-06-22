@@ -307,10 +307,9 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 10
-  speed: 3
-  damagePoints: {fileID: 2655277533046184024, guid: e1dafdb830b08c040b6b137ae643a5a3,
-    type: 3}
+  damage: 2
+  speed: 2
+  isAlive: 1
   lifebarImage: {fileID: 5216215895940284268}
   myCanvas: {fileID: 5216215893918243104}
 --- !u!1 &5216215894784917755

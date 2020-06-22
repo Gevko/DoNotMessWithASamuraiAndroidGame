@@ -79,11 +79,11 @@ public class UIManager : MonoBehaviour
         messages.Add(new DialogueMessage("Game", "Mensagem generica para o jogo", true, false, false));
         messages.Add(new DialogueMessage("Game", "Mensagem generica 2 para o jogo", false, false,false));
 //messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, true));
-        messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, false));
+        messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, true));
 
         messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
 
         messages.Add(new DialogueMessage("Boss", "Mensagem generica para o boss", true, false, false));
         messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, true, false));
