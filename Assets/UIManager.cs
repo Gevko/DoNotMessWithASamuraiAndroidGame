@@ -154,7 +154,6 @@ public class UIManager : MonoBehaviour
     public void HandleNextMessage() {
 
         bool allowContinue = true;
-        print(msgIndex.ToString());
 
         if(msgIndex > 0) {
 
