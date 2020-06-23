@@ -111,7 +111,22 @@ public class UIManager : MonoBehaviour
         messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
         messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
 
-        // Player a celebrar
+        // Boss a falar      
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", true, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
+
+        // Player a responder ao boss
+        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
+
+        // boss a morrer
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss a morrer", true, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
+
+        // PLayer a celebrar
         messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
@@ -139,6 +154,7 @@ public class UIManager : MonoBehaviour
     public void HandleNextMessage() {
 
         bool allowContinue = true;
+        print(msgIndex.ToString());
 
         if(msgIndex > 0) {
 

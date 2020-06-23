@@ -365,6 +365,9 @@ public class CharacterController : MonoBehaviour
                 }
             }
 
+            GameManager.Instance.playerAP = armourPoints;
+            GameManager.Instance.playerHP = healthPoints;
+
             updateBars();
         }
     }
@@ -419,7 +422,7 @@ public class CharacterController : MonoBehaviour
                 shieldsToDetect[i].GetComponent<ArmourBonusController>().Destroy();
 
   
-                AddCharacterLife(100);
+                AddCharacterLife(150);
             }
         }
 

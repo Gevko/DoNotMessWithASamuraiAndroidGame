@@ -210,6 +210,8 @@ public class FinalBoss : MonoBehaviour
 
         GameManager.Instance.secondBossDead = true;
 
+        GameManager.Instance.allowMoving = false;
+
         myAnimator.SetTrigger("Die");
 
         //GameManager.Instance.EnemyKilled();
