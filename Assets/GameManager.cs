@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
 
     public int maxEnemiesPerLvl = 2;
 
+    public bool IsPaused = false;
+
+    // { get; private set; }
+
+    private float oldTimeScale;
+
     [SerializeField]
     private GameObject HUD;
 
@@ -54,6 +60,35 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateEnemyCounter(enemiesKilled);
     }
 
+    public void showGameOver(bool val)
+    {
+        IsPaused = val;
+        UIManager.Instance.ShowGameOver(val);
+    }
+
+    public void ResetGame()
+    {
+        IsPaused = false;
+        level = 1;
+        Time.timeScale = oldTimeScale;
+        ResetScore();
+        LoadNextLevel();
+        UIManager.Instance.ShowPausePanel(false);
+        UIManager.Instance.resetMessages();
+        showGameOver(false);
+    }
+
+    public void LoadMainMenu()
+    {
+        IsPaused = false;
+        level = 0;
+        Time.timeScale = oldTimeScale;
+        ResetScore();
+        LoadNextLevel();
+        UIManager.Instance.ShowPausePanel(false);
+        UIManager.Instance.resetMessages();
+        showGameOver(false);
+    }
 
     public void LoadNextLevel ()
     {
@@ -66,20 +101,24 @@ public class GameManager : MonoBehaviour
     private IEnumerator LoadNextLevelAsync(int levelToLoad)
     {
         //HUD.SetActive(false);
+        print("levelToLoad");
+        print(levelToLoad);
 
         //EnemyManager.Instance.ResetEnemyCounter();
-        AsyncOperation asyncLoad;
+        AsyncOperation asyncLoad = null;
         if (levelToLoad == 0)
         {
-            //ResetScore();
-            asyncLoad = SceneManager.LoadSceneAsync("Menu");
+            ResetScore();
+            asyncLoad = SceneManager.LoadSceneAsync("Main Menu");
         }
         if (levelToLoad == 1)
         {
+            HUD.SetActive(true);
             asyncLoad = SceneManager.LoadSceneAsync("StartScene");
         }
         else if(levelToLoad == 2)
         {
+            HUD.SetActive(true);
             asyncLoad = SceneManager.LoadSceneAsync("InsideScene_1");
 
             //print(levelToLoad);
@@ -91,22 +130,25 @@ public class GameManager : MonoBehaviour
             } */
         } else if (levelToLoad == 3)
         {
+            HUD.SetActive(true);
             asyncLoad = SceneManager.LoadSceneAsync("InsideScene_2");
         }
         else if (levelToLoad == 4)
         {
+            HUD.SetActive(true);
             asyncLoad = SceneManager.LoadSceneAsync("InsideScene_3");
 
         } else if (levelToLoad == 5)
         {
+            HUD.SetActive(true);
             asyncLoad = SceneManager.LoadSceneAsync("FinalScene");
         }
 
-        /*while (!asyncLoad.isDone)
+        while (asyncLoad == null || !asyncLoad.isDone)
         {
-            //print(asyncLoad.progress);
+            print(asyncLoad.progress);
             yield return null;
-        }*/
+        }
         yield return null;
     }
 
@@ -114,6 +156,36 @@ public class GameManager : MonoBehaviour
     {
         enemiesKilled++;
         print("enemiesKilled: " + enemiesKilled.ToString());
+        UpdateEnemiesKilled();
+    }
+
+    public void PauseGame(bool pause)
+    {
+        IsPaused = pause;
+        if (pause)
+        {
+            oldTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+            UIManager.Instance.ShowPausePanel(true);
+
+        }
+        else
+        {
+            Time.timeScale = oldTimeScale;
+            UIManager.Instance.ShowPausePanel(false);
+        }
+    }
+
+    private void ResetScore()
+    {
+        playerHP = 100;
+        playerAP = 100;
+        firstBossSpawned = false;
+        secondBossSpawned = false;
+        firstBossDead = false;
+        secondBossDead = false;
+        enemiesKilled = 0;
+        IsPaused = false;
         UpdateEnemiesKilled();
     }
 
