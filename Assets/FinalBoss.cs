@@ -29,7 +29,7 @@ public class FinalBoss : MonoBehaviour
     private LayerMask damageLayerMask;
 
     [SerializeField]
-    private int damage = 10;
+    private int damage = 25;
 
     private Collider2D[] results = new Collider2D[1];
 

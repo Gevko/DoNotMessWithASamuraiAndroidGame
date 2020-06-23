@@ -94,7 +94,17 @@ public class UIManager : MonoBehaviour
         // Player depois de derrotar o 1º boss, e que vai ter que lutar mais
         messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
+
+        // Player depois de derrotar todos no 2º level - a dizer que vai tomar o escudo que apareceu
+        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
+
+        // Player depois de entrar  no 3º level 
+        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
 
         // Boss a apresentar-se e a dizer que vai destruir o player
         messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", true, false, false));
@@ -173,7 +183,7 @@ public class UIManager : MonoBehaviour
         }
        }
 
-        if(allowContinue) {
+        if(allowContinue && msgIndex >= 0 && (msgIndex+1) <= messages.Count) {
 
         DialogueMessage dm = messages[msgIndex];
 

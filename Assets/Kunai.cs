@@ -5,7 +5,7 @@ using UnityEngine;
 public class Kunai : MonoBehaviour
 {
     [SerializeField]
-    private int damage = 50;
+    private int damage = 10;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

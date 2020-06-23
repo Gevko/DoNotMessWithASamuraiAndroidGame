@@ -49,6 +49,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Canvas myCanvas;
 
+    [SerializeField]
+    private GameObject armourBonus;
+
     private Camera mainCamera;
 
     private Transform player;
@@ -185,6 +188,13 @@ public class Enemy : MonoBehaviour
         }
 
         isAlive = false;
+
+        GameManager.Instance.EnemyKilled();
+
+        if(GameManager.Instance.enemiesKilled == (GameManager.Instance.maxEnemiesPerLvl * 2)) { 
+             GameObject.Instantiate(armourBonus);
+             GameManager.Instance.allowMoving = false;
+        }
 
         myAnimator.SetTrigger("Die");
 

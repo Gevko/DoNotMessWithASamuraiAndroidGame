@@ -386,7 +386,11 @@ public class CharacterController : MonoBehaviour
                 armourPoints = 100;
             }
 
+            GameManager.Instance.playerAP = armourPoints;
+            GameManager.Instance.playerHP = armourPoints;
+
             updateBars();
+            AppearDmgPoints(hp+ap,false, true);
         }
     }
 

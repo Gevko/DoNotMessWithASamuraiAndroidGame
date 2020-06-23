@@ -212,6 +212,8 @@ MonoBehaviour:
   isAlive: 1
   lifebarImage: {fileID: 2483853981509850997}
   myCanvas: {fileID: 2483853982228382699}
+  armourBonus: {fileID: 7281316832244985218, guid: 0a4e9a2c269dfa446921acc68e90746a,
+    type: 3}
 --- !u!1 &2483853981509851000
 GameObject:
   m_ObjectHideFlags: 0

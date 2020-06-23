@@ -21,11 +21,10 @@ public class DoorController : MonoBehaviour
         if (
             other.CompareTag("Player") && 
             (GameManager.Instance.level == 3 && GameManager.Instance.firstBossDead) ||
-            (GameManager.Instance.level == 4 && GameManager.Instance.enemiesKilled >= 30) ||
+            (GameManager.Instance.level == 4 && GameManager.Instance.enemiesKilled == (GameManager.Instance.maxEnemiesPerLvl*2)) ||
             (GameManager.Instance.level == 5 && GameManager.Instance.secondBossDead)
             )
         {
-            GameManager.Instance.allowMoving = false;
             GameManager.Instance.LoadNextLevel();
         }
     }
