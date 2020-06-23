@@ -173,11 +173,14 @@ public class Enemy : MonoBehaviour
             }
 
             UpdateLifebarImage();
+                                print(GameManager.Instance.enemiesKilled.ToString() + " " + (GameManager.Instance.maxEnemiesPerLvl * 2).ToString());
 
             if (life == 0f)
             {
                 Die();
             }
+
+
         }
     }
     private void Die()
@@ -190,6 +193,7 @@ public class Enemy : MonoBehaviour
         isAlive = false;
 
         GameManager.Instance.EnemyKilled();
+
         if(GameManager.Instance.enemiesKilled == (GameManager.Instance.maxEnemiesPerLvl * 2)) { 
              GameObject.Instantiate(armourBonus);
              GameManager.Instance.allowMoving = false;
