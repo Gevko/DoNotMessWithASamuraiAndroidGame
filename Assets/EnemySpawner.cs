@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]
-    private int max = 15;
+    private int max = 0;
 
     [SerializeField]
-    private float timeBtwSpawns = 3.5f;
+    private float timeBtwSpawns = 4.5f;
 
     [SerializeField]
     private GameObject enemyFirstType;
@@ -27,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        max = GameManager.Instance.maxEnemiesPerLvl;
         StartCoroutine(Spawn());
     }
 
@@ -36,22 +36,26 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBtwSpawns);
 
-            Instantiate(firstBoss, transform.position, transform.rotation);
+            Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
 
-            //Instantiate(isFirst ? enemyFirstType : enemySecondType, transform.position, transform.rotation);
+            isFirst = isFirst ? false : true;
 
-            //isFirst = isFirst ? false : true;
+            if(GameManager.Instance.level == 3 && !GameManager.Instance.firstBossSpawned && i == max-1) {
 
-            /*if(GameManager.Instance.level == 3 && !GameManager.Instance.firstBossSpawned && i == 2) {
-                print("1º boss spawn");
                 Instantiate(firstBoss, transform.position, transform.rotation);
+
                 GameManager.Instance.firstBossSpawned = true;
+
+                GameManager.Instance.allowMoving = false;
             }
 
-           if(GameManager.Instance.level == 5 && !GameManager.Instance.secondBossSpawned && i == 12) {
+           if(GameManager.Instance.level == 5 && !GameManager.Instance.secondBossSpawned && i == max-1) {
                 Instantiate(secondBoss, transform.position, transform.rotation);
-                GameManager.Instance.firstBossSpawned = false;
-            }*/
+
+                GameManager.Instance.secondBossSpawned = true;
+
+                GameManager.Instance.allowMoving = false;
+            }
         }
     }
 }

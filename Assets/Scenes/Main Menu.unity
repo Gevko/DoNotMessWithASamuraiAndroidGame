@@ -160,10 +160,14 @@ MonoBehaviour:
     type: 3}
   playerDialogText: {fileID: 474121228714959715, guid: 9d2d873353fada14db3fcd1c5a519cea,
     type: 3}
-  bossDialogWindow: {fileID: 0}
-  bossDialogText: {fileID: 0}
-  finalBossDialogWindow: {fileID: 0}
-  finalBossDialogText: {fileID: 0}
+  bossDialogWindow: {fileID: 5045321525639539276, guid: 47154de824fd8ac40b88763f184f1113,
+    type: 3}
+  bossDialogText: {fileID: 2939346802186361548, guid: e80cf7e2fd8e7a240a577fc479064d40,
+    type: 3}
+  finalBossDialogWindow: {fileID: 5045321525639539276, guid: 47154de824fd8ac40b88763f184f1113,
+    type: 3}
+  finalBossDialogText: {fileID: 2939346802186361548, guid: e80cf7e2fd8e7a240a577fc479064d40,
+    type: 3}
 --- !u!4 &305430816
 Transform:
   m_ObjectHideFlags: 0
@@ -327,7 +331,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0d1c021fc00154ea648c00e6ceb7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesKilled: 0
+  level: 1
   allowMoving: 1
+  firstBossSpawned: 0
+  secondBossSpawned: 0
+  firstBossDead: 0
+  secondBossDead: 0
+  playerHP: 100
+  playerAP: 100
   HUD: {fileID: 1642378387}
 --- !u!4 &450272885
 Transform:
@@ -584,6 +596,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   smoothTime: 0.5
+  leftLimit: 0
+  rightLimit: 0
+  topLimit: 0
+  bottomLimit: 0
 --- !u!1 &1360567838
 GameObject:
   m_ObjectHideFlags: 0

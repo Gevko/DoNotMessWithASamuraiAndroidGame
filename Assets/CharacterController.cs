@@ -79,6 +79,9 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        armourPoints = GameManager.Instance.playerAP;
+        healthPoints = GameManager.Instance.playerHP;
+        updateBars();
     }
 
     private void Awake()
@@ -167,21 +170,21 @@ public class CharacterController : MonoBehaviour
             {
                 bool isAlive = false;
                 if(enemiesToDamage[i].GetComponent<Enemy>() != null && enemiesToDamage[i].GetComponent<Enemy>().isAlive) {
-                  enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                  enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(GameManager.Instance.firstBossDead ? damage* 2 : damage);
                    isAlive = true;
                 }
 
                 if(enemiesToDamage[i].GetComponent<Boss>() != null && enemiesToDamage[i].GetComponent<Boss>().isAlive) {
-                  enemiesToDamage[i].GetComponent<Boss>().TakeDamage(damage);
+                  enemiesToDamage[i].GetComponent<Boss>().TakeDamage(GameManager.Instance.firstBossDead ? damage * 2 : damage);
                     isAlive = true;
                 }
 
                 if(enemiesToDamage[i].GetComponent<FinalBoss>() != null && enemiesToDamage[i].GetComponent<FinalBoss>().isAlive) {
-                  enemiesToDamage[i].GetComponent<FinalBoss>().TakeDamage(damage);
+                  enemiesToDamage[i].GetComponent<FinalBoss>().TakeDamage(GameManager.Instance.firstBossDead ? damage * 2 : damage);
                     isAlive = true;
                 }
 
-                if(isAlive) { AppearDmgPoints(damage, false, false); }
+                if(isAlive) { AppearDmgPoints(GameManager.Instance.firstBossDead ? damage * 2 : damage, false, false); }
             }
         }
     }
@@ -330,6 +333,9 @@ public class CharacterController : MonoBehaviour
                 Defeat();
             }
 
+            GameManager.Instance.playerHP = healthPoints;
+            GameManager.Instance.playerAP = armourPoints;
+
             updateBars();
 
         }
@@ -387,8 +393,8 @@ public class CharacterController : MonoBehaviour
     private void Defeat()
     {
         isAlive = false;
-        myAnimator.SetTrigger("Defeat");
         GameManager.Instance.allowMoving = false;
+        myAnimator.SetTrigger("Defeat");
     }
 
     private void updateBars()

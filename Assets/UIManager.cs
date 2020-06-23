@@ -76,22 +76,35 @@ public class UIManager : MonoBehaviour
     }
 
     private void setupDialogueMsgs() {
+        // Explicação do contexto
         messages.Add(new DialogueMessage("Game", "Mensagem generica para o jogo", true, false, false));
         messages.Add(new DialogueMessage("Game", "Mensagem generica 2 para o jogo", false, false,false));
-//messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, true));
         messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, true));
 
+        // Player a falar que vai destruir tudo
         messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
 
+        // Boss a falar que vai destruir o player
         messages.Add(new DialogueMessage("Boss", "Mensagem generica para o boss", true, false, false));
-        messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, true, false));
+        messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, false, false));
+        messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, true, true));
 
+        // Player depois de derrotar o 1º boss, e que vai ter que lutar mais
+        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
+
+        // Boss a apresentar-se e a dizer que vai destruir o player
         messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", true, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", false, true, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
 
-
+        // Player a celebrar
+        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
 
     }
     private void Awake()

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; } = null;
 
-    private int enemiesKilled = 0;
+    public int enemiesKilled = 0;
 
     public int level = 1;
 
@@ -17,6 +17,16 @@ public class GameManager : MonoBehaviour
     public bool firstBossSpawned = false;
 
     public bool secondBossSpawned = false;
+
+    public bool firstBossDead = false;
+
+    public bool secondBossDead = false;
+
+    public int playerHP = 100;
+
+    public int playerAP = 100;
+
+    public int maxEnemiesPerLvl = 2;
 
     [SerializeField]
     private GameObject HUD;
@@ -30,6 +40,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -65,11 +76,11 @@ public class GameManager : MonoBehaviour
         }
         if (levelToLoad == 1)
         {
-            asyncLoad = SceneManager.LoadSceneAsync("Level1");
+            asyncLoad = SceneManager.LoadSceneAsync("StartScene");
         }
         else if(levelToLoad == 2)
         {
-            asyncLoad = SceneManager.LoadSceneAsync("InsideScene");
+            asyncLoad = SceneManager.LoadSceneAsync("InsideScene_1");
 
             //print(levelToLoad);
             //print(Application.CanStreamedLevelBeLoaded("Level" + levelToLoad));
@@ -78,6 +89,17 @@ public class GameManager : MonoBehaviour
                 HUD.SetActive(true);
                 asyncLoad = SceneManager.LoadSceneAsync("Level" + levelToLoad);
             } */
+        } else if (levelToLoad == 3)
+        {
+            asyncLoad = SceneManager.LoadSceneAsync("InsideScene_2");
+        }
+        else if (levelToLoad == 4)
+        {
+            asyncLoad = SceneManager.LoadSceneAsync("InsideScene_3");
+
+        } else if (levelToLoad == 5)
+        {
+            asyncLoad = SceneManager.LoadSceneAsync("FinalScene");
         }
 
         /*while (!asyncLoad.isDone)

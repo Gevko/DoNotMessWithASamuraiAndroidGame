@@ -27,7 +27,7 @@ public class Boss : MonoBehaviour
     private LayerMask damageLayerMask;
 
     [SerializeField]
-    private int damage = 10;
+    private int damage = 25;
 
     private Collider2D[] results = new Collider2D[1];
 
@@ -107,7 +107,8 @@ public class Boss : MonoBehaviour
             Flip();
         }*/
 
-        Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
+        if(isAlive && GameManager.Instance.allowMoving) {
+            Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
             playerCheck.position,
             attackRange,
             playerLayerMask);
@@ -127,6 +128,7 @@ public class Boss : MonoBehaviour
                     cooldownCounter = Environment.TickCount;
                 }
             }
+        }
         }
         //if (Physics2D.OverlapPointNonAlloc(
         //    playerCheck.position,
@@ -182,6 +184,8 @@ public class Boss : MonoBehaviour
         }
 
         isAlive = false;
+
+        GameManager.Instance.firstBossDead = true;
 
         myAnimator.SetTrigger("Die");
 

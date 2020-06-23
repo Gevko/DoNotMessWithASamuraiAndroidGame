@@ -325,7 +325,7 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 50
+  damage: 25
   speed: 1
   isAlive: 1
   lifebarImage: {fileID: 780754671684966095}
