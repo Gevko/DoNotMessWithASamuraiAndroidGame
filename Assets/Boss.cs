@@ -76,7 +76,7 @@ public class Boss : MonoBehaviour
     }
     private void Update()
     {
-        if (isAlive && GameManager.Instance.allowMoving)
+        if (isAlive && GameManager.Instance.allowMoving && !GameManager.Instance.IsPaused)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             print(player.position.x > transform.position.x);
@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
             Flip();
         }*/
 
-        if(isAlive && GameManager.Instance.allowMoving) {
+        if(isAlive && GameManager.Instance.allowMoving && !GameManager.Instance.IsPaused) {
             Collider2D[] playerColliders = Physics2D.OverlapCircleAll(
             playerCheck.position,
             attackRange,

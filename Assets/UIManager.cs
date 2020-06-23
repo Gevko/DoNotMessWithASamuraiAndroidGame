@@ -16,8 +16,8 @@ public class UIManager : MonoBehaviour
    [SerializeField]
     private GameObject gameDialogWindow; 
 
-    [SerializeField]
-    private GameObject player;
+    //[SerializeField]
+    //private GameObject player;
 
     [SerializeField]
     private GameObject gameDialogText;
@@ -71,7 +71,23 @@ public class UIManager : MonoBehaviour
 
     private GameObject fWindowDialogue;
 
+    // pause menu
+    [SerializeField]
+    private GameObject pausePanel;
+
+    // game over
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+
     private void Start() {
+        setupDialogueMsgs();
+    }
+
+    public void resetMessages()
+    {
+        msgIndex = 0;
+        messages = new List<DialogueMessage>();
         setupDialogueMsgs();
     }
 
@@ -293,6 +309,16 @@ public class UIManager : MonoBehaviour
              msgIndex++;
         }
       
+    }
+
+    public void ShowPausePanel(bool value)
+    {
+        pausePanel.SetActive(value);
+    }
+
+    public void ShowGameOver(bool value)
+    {
+        gameOverPanel.SetActive(value);
     }
 
 }

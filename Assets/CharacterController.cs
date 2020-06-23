@@ -79,6 +79,7 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        print("Start Player");
         armourPoints = GameManager.Instance.playerAP;
         healthPoints = GameManager.Instance.playerHP;
         updateBars();
@@ -109,7 +110,7 @@ public class CharacterController : MonoBehaviour
 
         if (isAlive)
         {
-            if(GameManager.Instance.allowMoving) {
+            if(GameManager.Instance.allowMoving && !GameManager.Instance.IsPaused) {
             
                 
             float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -149,7 +150,7 @@ public class CharacterController : MonoBehaviour
 
             HandleMovement(horizontalInput);
 
-            } else {
+            } else if (!GameManager.Instance.allowMoving) {
                 // se não me posso mexer - o fire1 = proxima mensagem
                 if (Input.GetButtonDown("Fire1")) {
                                 UIManager.Instance.HandleNextMessage();
@@ -247,7 +248,7 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (jump && IsGrounded() && GameManager.Instance.allowMoving)
+        if (jump && IsGrounded() && GameManager.Instance.allowMoving && !GameManager.Instance.IsPaused)
         {
             Jump();
         }
@@ -401,6 +402,7 @@ public class CharacterController : MonoBehaviour
     {
         isAlive = false;
         GameManager.Instance.allowMoving = false;
+        GameManager.Instance.showGameOver(true);
         myAnimator.SetTrigger("Defeat");
     }
 
