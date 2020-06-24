@@ -11,10 +11,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A534296D-4908-CCF7-C2A5-8D90FB964843}</ProjectGuid>
+    <ProjectGuid>{07207508-A991-FD0B-5D7B-D35FC4B574CA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -55,20 +55,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Boss.cs" />
-     <Compile Include="Assets\ButtonExit.cs" />
-     <Compile Include="Assets\CameraFollow.cs" />
-     <Compile Include="Assets\CharacterController.cs" />
-     <Compile Include="Assets\Enemy.cs" />
-     <Compile Include="Assets\EnemySpawner.cs" />
-     <Compile Include="Assets\FinalBoss.cs" />
-     <Compile Include="Assets\GameManager.cs" />
-     <Compile Include="Assets\Kunai.cs" />
-     <Compile Include="Assets\UIManager.cs" />
-     <None Include="Assets\Knight Files\Read Me.txt" />
-     <None Include="Assets\BayatGames\Free Platform Game Assets\Readme.txt" />
-     <None Include="Assets\Quantum Tek\Simple Menu\Fonts\Oxygen\OFL.txt" />
-     <None Include="Assets\BasicEnemy2\04-Sliding\not available.txt" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Users/oleksandr.gevko/Music/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -600,12 +598,6 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/Users/oleksandr.gevko/Music/2019.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{07207508-A991-FD0B-5D7B-D35FC4B574CA}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
