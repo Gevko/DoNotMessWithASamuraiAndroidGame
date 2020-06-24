@@ -209,6 +209,7 @@ public class FinalBoss : MonoBehaviour
         isAlive = false;
 
         GameManager.Instance.secondBossDead = true;
+        GameManager.Instance.showGameWin(true);
 
         GameManager.Instance.allowMoving = false;
 

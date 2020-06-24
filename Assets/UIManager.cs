@@ -79,6 +79,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverPanel;
 
+    // game win
+    [SerializeField]
+    private GameObject gameWinPanel;
+
 
     private void Start() {
         setupDialogueMsgs();
@@ -320,7 +324,12 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(value);
     }
-    
+
+    public void ShowGameWin(bool value)
+    {
+        gameWinPanel.SetActive(value);
+    }
+
 
 }
 

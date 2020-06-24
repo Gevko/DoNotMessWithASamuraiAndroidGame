@@ -38,7 +38,8 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        for(int i = 0; i < max; i++)
+
+        for (int i = 0; i < max; i++)
         {
             yield return new WaitForSeconds(timeBtwSpawns);
 

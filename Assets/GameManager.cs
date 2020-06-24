@@ -66,6 +66,12 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowGameOver(val);
     }
 
+    public void showGameWin(bool val)
+    {
+        IsPaused = val;
+        UIManager.Instance.ShowGameWin(val);
+    }
+
     public void ResetGame()
     {
         IsPaused = false;
@@ -88,12 +94,12 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowPausePanel(false);
         UIManager.Instance.resetMessages();
         showGameOver(false);
+        showGameWin(false);
     }
 
     public void LoadNextLevel ()
     {
-        print("LoadNextLevel");
-        StartCoroutine(LoadNextLevelAsync(level));
+       StartCoroutine(LoadNextLevelAsync(level));
         level++;
         allowMoving = false;
     }
