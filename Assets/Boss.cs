@@ -38,7 +38,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
 
-    private float life = 100f;
+    private float life = 150f;
 
     public bool isAlive = true;
 

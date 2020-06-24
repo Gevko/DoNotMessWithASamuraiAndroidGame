@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     public int playerAP = 100;
 
-    public int maxEnemiesPerLvl = 2;
+    public int maxEnemiesPerLvl = 15;
 
     public bool IsPaused = false;
 

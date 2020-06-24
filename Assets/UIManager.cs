@@ -93,17 +93,17 @@ public class UIManager : MonoBehaviour
 
     private void setupDialogueMsgs() {
         // Explicação do contexto
-        messages.Add(new DialogueMessage("Game", "Mensagem generica para o jogo", true, false, false));
-        messages.Add(new DialogueMessage("Game", "Mensagem generica 2 para o jogo", false, false,false));
-        messages.Add(new DialogueMessage("Game", "Mensagem generica 3 para o jogo", false, true, true));
+        messages.Add(new DialogueMessage("Game", "Kira, you are the best samurai alive\nWe all know that you search peace...", true, false, false));
+        messages.Add(new DialogueMessage("Game", "But you are the last hope of this city\nYou have to revenge your boss...", false, false,false));
+        messages.Add(new DialogueMessage("Game", "If no, the Yakuza will murder more, and more...", false, true, true));
 
         // Player a falar que vai destruir tudo
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
+        messages.Add(new DialogueMessage("Player", "I see there is a lot of you...\nYou should surrender now!", true, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
         messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
 
         // Boss a falar que vai destruir o player
-        messages.Add(new DialogueMessage("Boss", "Mensagem generica para o boss", true, false, false));
+        messages.Add(new DialogueMessage("Boss", "Oh Kira, I remember you\nWe fight each other back back in the days\nBut tonight you will be defeated!", true, false, false));
         messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, false, false));
         messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, true, true));
 

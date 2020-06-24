@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private int max = 0;
+    private int max = 15;
 
     [SerializeField]
     private float timeBtwSpawns = 4.5f;
@@ -27,6 +27,12 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         max = GameManager.Instance.maxEnemiesPerLvl;
+        if(GameManager.Instance.level == 3) {
+            max = 20;
+        } else if (GameManager.Instance.level == 5) {
+            max = 25;
+        }
+                    GameManager.Instance.maxEnemiesPerLvl = max;
         StartCoroutine(Spawn());
     }
 
