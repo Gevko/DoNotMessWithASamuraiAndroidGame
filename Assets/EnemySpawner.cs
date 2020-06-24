@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
         } else if (GameManager.Instance.level == 5) {
             max = 25;
         }
+
                     GameManager.Instance.maxEnemiesPerLvl = max;
         StartCoroutine(Spawn());
     }
