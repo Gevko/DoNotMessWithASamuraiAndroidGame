@@ -11,9 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 91309003d363b7741af6e97cd3816d7d
-  - enabled: 1
-    path: Assets/Scenes/InsideScene.unity
-    guid: 95b9e9fd3e2f5584aa67647262ee123a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/InsideScene_1.unity
     guid: 375474c733461474d881181e790112e9

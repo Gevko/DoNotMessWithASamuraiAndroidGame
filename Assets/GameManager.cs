@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool pause)
     {
+        print("PauseGame");
         IsPaused = pause;
         if (pause)
         {
