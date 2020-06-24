@@ -32,14 +32,14 @@ public class EnemySpawner : MonoBehaviour
         } else if (GameManager.Instance.level == 5) {
             max = 25;
         }
-
                     GameManager.Instance.maxEnemiesPerLvl = max;
         StartCoroutine(Spawn());
     }
 
     private IEnumerator Spawn()
     {
-        for(int i = 0; i < max; i++)
+
+        for (int i = 0; i < max; i++)
         {
             yield return new WaitForSeconds(timeBtwSpawns);
 
@@ -54,6 +54,7 @@ public class EnemySpawner : MonoBehaviour
                 GameManager.Instance.firstBossSpawned = true;
 
                 GameManager.Instance.allowMoving = false;
+                
             }
 
            if(GameManager.Instance.level == 5 && !GameManager.Instance.secondBossSpawned && i == max-1) {
@@ -62,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
                 GameManager.Instance.secondBossSpawned = true;
 
                 GameManager.Instance.allowMoving = false;
+
             }
         }
     }

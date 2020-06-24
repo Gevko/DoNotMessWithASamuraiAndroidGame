@@ -79,6 +79,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverPanel;
 
+    // game win
+    [SerializeField]
+    private GameObject gameWinPanel;
+
 
     private void Start() {
         setupDialogueMsgs();
@@ -93,59 +97,49 @@ public class UIManager : MonoBehaviour
 
     private void setupDialogueMsgs() {
         // Explicação do contexto
-        messages.Add(new DialogueMessage("Game", "Kira, you are the best samurai alive\nWe all know that you search peace...", true, false, false));
-        messages.Add(new DialogueMessage("Game", "But you are the last hope of this city\nYou have to revenge your boss...", false, false,false));
-        messages.Add(new DialogueMessage("Game", "If no, the Yakuza will murder more, and more...", false, true, true));
+        messages.Add(new DialogueMessage("Game", "Kira, you are the best samurai alive\nWe all know that you search peace\nAlso we do\nBut we all need this...", true, false, false));
+        messages.Add(new DialogueMessage("Game", "You are the last hope of this city\nYou have to revenge your master\nHe gave everything to you when \nYou were lost...", false, false,false));
+        messages.Add(new DialogueMessage("Game", "You have to protect everyone\nYour wife and your children\nAll the community, just...do it!", false, true, true));
 
         // Player a falar que vai destruir tudo
-        messages.Add(new DialogueMessage("Player", "I see there is a lot of you...\nYou should surrender now!", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "I see there is no other choise\nI must to do this...", true, false, false));
+        messages.Add(new DialogueMessage("Player", "There seems this floor is empty\nBut this can't be possible!\nThere must be some one defending \nthis floor", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Oh no, i was right!!! I see these\n samurais\nbut if they are here, their master should\n also be...", false, true, true));
 
         // Boss a falar que vai destruir o player
-        messages.Add(new DialogueMessage("Boss", "Oh Kira, I remember you\nWe fight each other back back in the days\nBut tonight you will be defeated!", true, false, false));
-        messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, false, false));
-        messages.Add(new DialogueMessage("Boss", "Mensagem generica2 para o boss", false, true, true));
+        messages.Add(new DialogueMessage("Boss", "Oh Kira, I remember you\nWe fight each other back\n in the days\nBut tonight you will be defeated!", true, false, false));
+        messages.Add(new DialogueMessage("Boss", "The Yakuza are gaining more \nand more power here, city by city\nCountry by country, we will conquer\nthe world!", false, false, false));
+        messages.Add(new DialogueMessage("Boss", "Knee behind me or die\nBacause i am the...\nYahiko Saori!!!", false, true, true));
 
         // Player depois de derrotar o 1º boss, e que vai ter que lutar mais
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "This was not easy, I am wounded!", true, false, false));
+        messages.Add(new DialogueMessage("Player", "How many of them are here?\nI dont know if I am able to complete\nthis mission!", false, false, false));
+        messages.Add(new DialogueMessage("Player", "I think I will have to fight\to the death!\nIt is me or them!", false, true, true));
 
         // Player depois de derrotar todos no 2º level - a dizer que vai tomar o escudo que apareceu
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "Im tired, I need to rest!", true, false, false));
+        messages.Add(new DialogueMessage("Player", "Wait, what it is there?What is that shield?", false, false, false));
+        messages.Add(new DialogueMessage("Player", "Oh, I see, the secret shield, it will \nhelp me gain some energy!", false, true, true));
 
         // Player depois de entrar  no 3º level 
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 3 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "So this is the last floor\nSo what if the Yamato isn't here?\nIs this all worthless?", true, false, false));
+        messages.Add(new DialogueMessage("Player", "No! I will make my oath \npure truth words\nAnd search for him to\nthe end of my days!", false, false, false));
+        messages.Add(new DialogueMessage("Player", "I will fulfill the \nsamuri's path and avenge my master's\n death, I can do it!", false, true, true));
 
         // Boss a apresentar-se e a dizer que vai destruir o player
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", true, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
+        messages.Add(new DialogueMessage("FinalBoss", "EHEHEHE Hello, Kira\nI noticed you are searching\nme, the blood trail you are\nleaving behind..", true, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "You know now it is or me or you\nUntil the last breathe", false, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Im just joking\n AHAHAHA", false, true, false));
 
         // Boss a falar      
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss", true, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Never have they teached\nyou that you should never\nmess wth the big fish?", true, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "The path you have chosen\nIs a wrong path...", false, false, false));
+        messages.Add(new DialogueMessage("FinalBoss", "Maybe you could start\nworking for me\nAnd forget what happend here?", false, true, false));
 
         // Player a responder ao boss
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
-
-        // boss a morrer
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica para o final boss a morrer", true, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 2 para o final boss", false, false, false));
-        messages.Add(new DialogueMessage("FinalBoss", "Mensagem generica 3 para o final boss", false, true, false));
-
-        // PLayer a celebrar
-        messages.Add(new DialogueMessage("Player", "Mensagem generica para o player", true, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, false, false));
-        messages.Add(new DialogueMessage("Player", "Mensagem generica 2 para o player", false, true, true));
+        messages.Add(new DialogueMessage("Player", "No! Never!", true, false, false));
+        messages.Add(new DialogueMessage("Player", "I will revenge my men\nThe men you took life away\nThe honest men that saved me..", false, false, false));
+        messages.Add(new DialogueMessage("Player", "From all the emptiness the\nsamurai's life offers", false, true, true));
 
     }
     private void Awake()
@@ -320,7 +314,12 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(value);
     }
-    
+
+    public void ShowGameWin(bool value)
+    {
+        gameWinPanel.SetActive(value);
+    }
+
 
 }
 
