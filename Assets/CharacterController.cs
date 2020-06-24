@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-
+using UnityStandardAssets.CrossPlatformInput;
 
 public class CharacterController : MonoBehaviour
 {
@@ -113,7 +113,7 @@ public class CharacterController : MonoBehaviour
             if(GameManager.Instance.allowMoving && !GameManager.Instance.IsPaused) {
             
                 
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float horizontalInput = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 
             if (transform.right.x > 0 && horizontalInput < 0)
             {
@@ -125,13 +125,13 @@ public class CharacterController : MonoBehaviour
                 Flip();
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (CrossPlatformInputManager.GetButtonDown("Jump"))
             {
                 StopAttackAnimation();
                 jump = true;
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (CrossPlatformInputManager.GetButtonDown("Fire1"))
             {
                 if (cooldownCounter == 0)
                 {
@@ -152,7 +152,7 @@ public class CharacterController : MonoBehaviour
 
             } else if (!GameManager.Instance.allowMoving) {
                 // se não me posso mexer - o fire1 = proxima mensagem
-                if (Input.GetButtonDown("Fire1")) {
+                if (CrossPlatformInputManager.GetButtonDown("Fire1")) {
                                 UIManager.Instance.HandleNextMessage();
                 }
             }

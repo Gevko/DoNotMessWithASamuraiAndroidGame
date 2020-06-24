@@ -320,6 +320,7 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(value);
     }
+    
 
 }
 
